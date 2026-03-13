@@ -1,673 +1,364 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>gabb.ro — Geology & Technical Consulting</title>
-  <meta name="description" content="Independent geology, resource evaluation, GIS, and technical consulting." />
-  <style>
-    :root {
-      --bg: #f5f1ea;
-      --paper: #fcfaf6;
-      --paper-2: #f0e8dc;
-      --ink: #161514;
-      --muted: #625d56;
-      --line: #d7cdbf;
-      --accent: #556b5d;
-      --accent-2: #8a7b67;
-      --shadow: 0 16px 40px rgba(33, 28, 20, 0.08);
-      --radius: 28px;
-      --max: 1180px;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>gabb.ro — Geological Atlas / Technical Advisory</title>
+<meta name="description" content="Exploration geology, assay QAQC, GIS workflows, and technical reporting for mineral exploration projects." />
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(138, 123, 103, 0.10), transparent 25%),
-        linear-gradient(180deg, #f8f4ee 0%, #f4efe7 100%);
-      font-family: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      min-height: 100vh;
-    }
+<style>
+:root{
+--bg:#f4efe7;
+--paper:#fbf8f2;
+--paper-2:#f1eadf;
+--ink:#171513;
+--muted:#645f58;
+--line:#d9cfbf;
+--accent:#52685c;
+--accent-2:#8c7d68;
+--shadow:0 14px 36px rgba(40,31,20,.08);
+--radius:26px;
+--max:1180px;
+}
 
-    a { color: inherit; text-decoration: none; }
-    .wrap { width: min(calc(100% - 32px), var(--max)); margin: 0 auto; }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+margin:0;
+font-family:Inter,system-ui,-apple-system,sans-serif;
+background:
+radial-gradient(circle at top left, rgba(140,125,104,.08), transparent 28%),
+linear-gradient(180deg,#f8f4ed,#f2ece3 100%);
+color:var(--ink);
+}
 
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(248, 244, 238, 0.82);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(98, 93, 86, 0.08);
-    }
+a{text-decoration:none;color:inherit}
+.wrap{width:min(calc(100% - 32px),var(--max));margin:auto}
 
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      padding: 18px 0;
-    }
+.site-header{
+position:sticky;
+top:0;
+z-index:30;
+background:rgba(248,244,237,.88);
+backdrop-filter:blur(12px);
+border-bottom:1px solid rgba(0,0,0,.05)
+}
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      min-width: 0;
-    }
+.nav{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:16px 0}
 
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, #f3ece2, #ded0bf);
-      border: 1px solid rgba(98, 93, 86, 0.14);
-      box-shadow: var(--shadow);
-      font-weight: 800;
-      letter-spacing: 0.08em;
-    }
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
 
-    .brand-copy strong {
-      display: block;
-      font-size: 0.96rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
+.brand-mark{
+width:44px;height:44px;border-radius:12px;
+display:grid;place-items:center;
+background:linear-gradient(135deg,#f1e8dc,#dfd0bd);
+border:1px solid rgba(0,0,0,.08);
+font-weight:800;letter-spacing:.08em;
+box-shadow:var(--shadow);
+position:relative;overflow:hidden
+}
 
-    .brand-copy span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 0.80rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
+.brand-mark::after{content:"";position:absolute;inset:6px;border-radius:8px;border:1px solid rgba(99,91,81,.14)}
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
+.brand-copy strong{display:block;font-size:.92rem;letter-spacing:.18em}
+.brand-copy span{display:block;margin-top:4px;font-size:.74rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0 20px;
-      border-radius: 999px;
-      font-weight: 650;
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-      border: 1px solid transparent;
-    }
+.nav-links{display:flex;gap:22px;align-items:center;color:var(--muted);font-size:.9rem}
 
-    .btn:hover { transform: translateY(-1px); }
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid transparent;font-weight:600;transition:.18s ease}
+.btn:hover{transform:translateY(-1px)}
 
-    .btn-primary {
-      background: var(--accent);
-      color: #faf8f3;
-      box-shadow: 0 10px 26px rgba(85, 107, 93, 0.18);
-    }
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 20px rgba(82,104,92,.18)}
+.btn-secondary{border-color:rgba(0,0,0,.14);background:rgba(255,255,255,.45)}
 
-    .btn-secondary {
-      background: transparent;
-      border-color: rgba(98, 93, 86, 0.18);
-    }
+.section{padding:24px 0 52px}
+.section-title{margin:0;font-size:clamp(1.7rem,3vw,2.5rem);line-height:1.05;letter-spacing:-.03em}
+.section-copy{margin:10px 0 0;color:var(--muted);line-height:1.85;font-size:.98rem}
 
-    .hero {
-      padding: 58px 0 42px;
-    }
+.atlas-hero{padding:36px 0 18px}
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 24px;
-      align-items: stretch;
-    }
+.atlas-frame{
+background:var(--paper);
+border:1px solid rgba(0,0,0,.06);
+border-radius:32px;
+box-shadow:var(--shadow);
+overflow:hidden
+}
 
-    .panel {
-      background: rgba(252, 250, 246, 0.86);
-      border: 1px solid rgba(98, 93, 86, 0.10);
-      border-radius: 32px;
-      box-shadow: var(--shadow);
-    }
+.atlas-grid{display:grid;grid-template-columns:1.15fr .85fr;min-height:600px}
 
-    .hero-copy {
-      padding: 44px;
-      position: relative;
-      overflow: hidden;
-    }
+.atlas-main{
+padding:40px 42px 38px;
+position:relative;
+background:
+linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0)),
+linear-gradient(135deg, rgba(140,125,104,.04), rgba(82,104,92,.03));
+}
 
-    .hero-copy::before {
-      content: "";
-      position: absolute;
-      right: -70px;
-      top: -70px;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      border: 1px solid rgba(98, 93, 86, 0.10);
-      opacity: 0.7;
-    }
+/* geological contour overlay */
+.atlas-main::before{
+content:"";
+position:absolute;inset:0;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 900'%3E%3Cg fill='none' stroke='%238c7d68' stroke-opacity='0.22' stroke-width='1.1'%3E%3Cpath d='M0 200 C100 160 200 220 340 180 S520 150 700 120 900 150 1100 100 1250 90 1400 60'/%3E%3Cpath d='M0 260 C120 220 230 280 360 240 S520 210 700 170 900 200 1100 150 1250 140 1400 110'/%3E%3Cpath d='M0 320 C100 290 220 340 350 300 S520 270 700 230 900 250 1100 210 1250 200 1400 170'/%3E%3C/g%3E%3C/svg%3E");
+background-size:cover;background-position:center;
+opacity:.25;pointer-events:none}
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 14px;
-      border-radius: 999px;
-      background: rgba(85, 107, 93, 0.08);
-      border: 1px solid rgba(85, 107, 93, 0.14);
-      color: var(--accent);
-      font-size: 0.84rem;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
+.atlas-main>*{position:relative;z-index:1}
 
-    h1 {
-      margin: 0;
-      font-size: clamp(2.7rem, 5vw, 5.3rem);
-      line-height: 0.95;
-      letter-spacing: -0.055em;
-      max-width: 10ch;
-    }
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(82,104,92,.08);border:1px solid rgba(82,104,92,.14);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
 
-    .lead {
-      margin: 20px 0 0;
-      color: var(--muted);
-      font-size: 1.05rem;
-      line-height: 1.9;
-      max-width: 62ch;
-    }
+h1{
+margin:18px 0 0;
+font-size:clamp(2.6rem,6vw,5rem);
+line-height:.92;
+letter-spacing:-.045em;
+max-width:8.5ch
+}
 
-    .hero-actions {
-      margin-top: 28px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+.lead{margin:20px 0 0;max-width:62ch;color:var(--muted);line-height:1.85;font-size:1rem}
 
-    .signature-strip {
-      margin-top: 30px;
-      padding-top: 22px;
-      border-top: 1px solid rgba(98, 93, 86, 0.10);
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
 
-    .signature-strip span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
+.atlas-ribbon{
+margin-top:26px;
+padding-top:18px;
+border-top:1px solid var(--line);
+display:grid;grid-template-columns:repeat(3,1fr);gap:14px
+}
 
-    .signature-strip strong {
-      display: block;
-      font-size: 0.98rem;
-      line-height: 1.5;
-    }
+.atlas-ribbon span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:6px}
 
-    .hero-side {
-      padding: 24px;
-      display: grid;
-      gap: 16px;
-      grid-template-rows: 1.2fr auto auto;
-    }
+.atlas-ribbon strong{display:block;font-size:.94rem;line-height:1.5}
 
-    .terrain-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 26px;
-      padding: 26px;
-      min-height: 290px;
-      background:
-        linear-gradient(180deg, rgba(248, 244, 238, 0.95), rgba(240, 232, 220, 0.92));
-      border: 1px solid rgba(98, 93, 86, 0.10);
-    }
+.atlas-side{
+border-left:1px solid rgba(0,0,0,.06);
+background:linear-gradient(180deg,var(--paper),var(--paper-2));
+display:grid;grid-template-rows:auto 1fr
+}
 
-    .terrain {
-      position: absolute;
-      inset: auto 0 0 0;
-      height: 62%;
-      opacity: 0.85;
-    }
+.panel-block{padding:26px;border-bottom:1px solid rgba(0,0,0,.06)}
+.side-title{margin:0;font-size:1rem}
+.side-copy{margin:10px 0 0;color:var(--muted);line-height:1.8;font-size:.95rem}
 
-    .terrain svg { width: 100%; height: 100%; }
+.mini-atlas{padding:24px;display:grid;gap:14px}
 
-    .terrain-copy {
-      position: relative;
-      z-index: 2;
-      max-width: 24ch;
-    }
+.mini-sheet{
+background:rgba(255,255,255,.55);
+border:1px solid rgba(0,0,0,.06);
+border-radius:20px;
+padding:16px
+}
 
-    .terrain-copy strong,
-    .mini-card strong,
-    .profile-card strong {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 0.82rem;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+.mini-sheet strong{display:block;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.mini-sheet p{margin:0;font-size:.94rem;line-height:1.7}
 
-    .terrain-copy p,
-    .mini-card p,
-    .profile-card p {
-      margin: 0;
-      line-height: 1.8;
-    }
+.services-shell,.approach-shell{background:var(--paper);border:1px solid rgba(0,0,0,.06);border-radius:28px;box-shadow:var(--shadow);padding:30px}
 
-    .mini-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
+.split-intro{display:grid;grid-template-columns:.9fr 1.1fr;gap:26px;margin-bottom:20px}
 
-    .mini-card,
-    .profile-card {
-      padding: 20px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.48);
-      border: 1px solid rgba(98, 93, 86, 0.10);
-    }
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
 
-    .section {
-      padding: 18px 0 56px;
-    }
+.card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:22px;padding:22px}
+.card h3{margin:0 0 10px;font-size:1.05rem}
+.card p{margin:0;color:var(--muted);line-height:1.8;font-size:.95rem}
 
-    .section-shell {
-      padding: 34px;
-    }
+.approach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
 
-    .section-intro {
-      display: grid;
-      grid-template-columns: 0.92fr 1.08fr;
-      gap: 28px;
-      align-items: start;
-      margin-bottom: 26px;
-    }
+.step{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:20px;padding:18px}
 
-    .kicker {
-      display: block;
-      color: var(--accent);
-      font-size: 0.84rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
+.step small{display:block;margin-bottom:8px;color:var(--accent);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem}
+.step strong{display:block;margin-bottom:8px;font-size:.96rem}
+.step p{margin:0;color:var(--muted);line-height:1.75;font-size:.93rem}
 
-    .section-title {
-      margin: 0;
-      font-size: clamp(1.7rem, 3vw, 2.9rem);
-      line-height: 1.04;
-      letter-spacing: -0.045em;
-    }
+.cta{margin:18px 0 70px;padding:30px;border-radius:28px;background:linear-gradient(135deg,rgba(82,104,92,.08),rgba(140,125,104,.12));border:1px solid rgba(0,0,0,.08);display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
 
-    .section-copy {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.9;
-      max-width: 72ch;
-    }
+.cta h2{margin:0;font-size:clamp(1.6rem,3vw,2.3rem);letter-spacing:-.03em}
+.cta p{margin:8px 0 0;color:var(--muted);line-height:1.8;font-size:.95rem}
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
+footer{padding-bottom:40px;color:var(--muted);font-size:.85rem}
 
-    .card {
-      padding: 24px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.46);
-      border: 1px solid rgba(98, 93, 86, 0.10);
-    }
+@media(max-width:1024px){
+.atlas-grid,.split-intro,.cta{grid-template-columns:1fr}
+.cards,.approach-grid{grid-template-columns:repeat(2,1fr)}
+.atlas-side{border-left:none;border-top:1px solid rgba(0,0,0,.06)}
+.nav-links a:not(.btn){display:none}
+}
 
-    .card h3 {
-      margin: 0 0 12px;
-      font-size: 1.08rem;
-      letter-spacing: -0.02em;
-    }
-
-    .card p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .approach-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .step {
-      padding: 20px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.48);
-      border: 1px solid rgba(98, 93, 86, 0.10);
-    }
-
-    .step small {
-      display: block;
-      margin-bottom: 10px;
-      color: var(--accent);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.10em;
-    }
-
-    .step strong {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 1rem;
-    }
-
-    .step p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .featured-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 16px;
-    }
-
-    .featured-large,
-    .featured-stack > div {
-      padding: 26px;
-      border-radius: 26px;
-      background: rgba(255,255,255,0.48);
-      border: 1px solid rgba(98, 93, 86, 0.10);
-    }
-
-    .featured-large p,
-    .featured-stack p {
-      margin: 10px 0 0;
-      color: var(--muted);
-      line-height: 1.85;
-    }
-
-    .featured-stack {
-      display: grid;
-      gap: 16px;
-    }
-
-    .cta {
-      margin: 12px 0 80px;
-      padding: 36px;
-      border-radius: 32px;
-      background: linear-gradient(135deg, rgba(85, 107, 93, 0.09), rgba(138, 123, 103, 0.14));
-      border: 1px solid rgba(98, 93, 86, 0.12);
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-columns: 1.1fr auto;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .cta h2 {
-      margin: 0;
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-    }
-
-    .cta p {
-      margin: 10px 0 0;
-      color: var(--muted);
-      line-height: 1.9;
-      max-width: 62ch;
-    }
-
-    .site-footer {
-      padding: 0 0 40px;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    @media (max-width: 1024px) {
-      .hero-grid,
-      .section-intro,
-      .featured-grid,
-      .cta {
-        grid-template-columns: 1fr;
-      }
-
-      .cards,
-      .approach-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .nav-links a:not(.btn) { display: none; }
-    }
-
-    @media (max-width: 720px) {
-      .hero-copy,
-      .hero-side,
-      .section-shell,
-      .cta { padding: 24px; }
-
-      .signature-strip,
-      .mini-grid,
-      .cards,
-      .approach-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero { padding-top: 42px; }
-      .wrap { width: min(calc(100% - 24px), var(--max)); }
-      h1 { font-size: 2.5rem; }
-    }
-  </style>
+@media(max-width:760px){
+.wrap{width:min(calc(100% - 24px),var(--max))}
+.atlas-main,.panel-block,.mini-atlas,.services-shell,.approach-shell,.cta{padding:22px}
+.cards,.approach-grid{grid-template-columns:1fr}
+.atlas-ribbon{grid-template-columns:1fr}
+.atlas-hero{padding-top:24px}
+}
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="gabb.ro home">
-        <span class="brand-mark">G</span>
-        <span class="brand-copy">
-          <strong>GABB.RO</strong>
-          <span>Geology & Technical Consulting</span>
-        </span>
-      </a>
-      <nav class="nav-links">
-        <a href="#services">Services</a>
-        <a href="#approach">Approach</a>
-        <a href="#work">Focus</a>
-        <a class="btn btn-primary" href="https://linkedin.com/">Connect</a>
-      </nav>
-    </div>
-  </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="wrap hero-grid">
-        <div class="panel hero-copy">
-          <div class="eyebrow">Independent Advisory • Geology • GIS • Technical Review</div>
-          <h1>Clarity for complex subsurface decisions.</h1>
-          <p class="lead">
-            A minimalist consulting presence for geological interpretation, resource-support workflows, geospatial analysis, technical reviews, and decision-ready reporting. Designed to feel calm, precise, and credible from the first scroll.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="https://linkedin.com/">Discuss a project</a>
-            <a class="btn btn-secondary" href="#services">View expertise</a>
-          </div>
+<header class="site-header">
+<div class="wrap nav">
+<a class="brand" href="#top">
+<span class="brand-mark">GR</span>
+<span class="brand-copy">
+<strong>GABB.RO</strong>
+<span>Exploration Geology & Technical Advisory</span>
+</span>
+</a>
+<nav class="nav-links">
+<a href="#services">Expertise</a>
+<a href="#approach">Approach</a>
+<a class="btn btn-primary" href="https://linkedin.com">Connect</a>
+</nav>
+</div>
+</header>
 
-          <div class="signature-strip">
-            <div>
-              <span>Core Themes</span>
-              <strong>Geology, QA/QC, GIS, technical communication</strong>
-            </div>
-            <div>
-              <span>Typical Work</span>
-              <strong>Interpretation support, reviews, dashboards, reporting</strong>
-            </div>
-            <div>
-              <span>Style</span>
-              <strong>Measured, analytical, field-grounded, decision-focused</strong>
-            </div>
-          </div>
-        </div>
+<main id="top">
+<section class="atlas-hero">
+<div class="wrap atlas-frame">
+<div class="atlas-grid">
+<div class="atlas-main">
+<div class="eyebrow">Geological Atlas / Data QAQC / GIS Workflows / Technical Reporting</div>
+<h1>Turning complex exploration data into decisions.</h1>
+<p class="lead">
+Gabb.ro is a geology-led technical platform shaped by exploration work, assay QAQC, GIS automation, and structured reporting. It is positioned as a calm, credible front-end for the kind of work that sits between field observation, analytical validation, spatial interpretation, and decision-ready communication.
+</p>
+<div class="hero-actions">
+<a class="btn btn-primary" href="https://linkedin.com">Discuss a project</a>
 
-        <aside class="panel hero-side">
-          <div class="terrain-card">
-            <div class="terrain-copy">
-              <strong>Field to decision</strong>
-              <p>From drill data and assay QA/QC to maps, models, and board-ready summaries.</p>
-            </div>
-            <div class="terrain" aria-hidden="true">
-              <svg viewBox="0 0 600 300" preserveAspectRatio="none">
-                <path d="M0,250 C80,210 120,235 190,198 C250,167 310,180 380,145 C440,115 500,126 600,78 L600,300 L0,300 Z" fill="rgba(138,123,103,0.20)"/>
-                <path d="M0,265 C90,236 145,248 210,215 C285,177 338,196 410,162 C495,122 535,136 600,110 L600,300 L0,300 Z" fill="rgba(85,107,93,0.16)"/>
-                <path d="M0,280 C72,258 138,262 214,240 C295,216 360,228 434,208 C503,190 553,180 600,170" stroke="rgba(98,93,86,0.22)" stroke-width="1.4" fill="none"/>
-                <path d="M0,232 C84,206 145,218 208,188 C280,154 346,172 414,138 C488,102 547,110 600,92" stroke="rgba(98,93,86,0.16)" stroke-width="1.2" fill="none"/>
-              </svg>
-            </div>
-          </div>
+</div>
+<div class="atlas-ribbon">
+<div>
+<span>Specialisation</span>
+<strong>Mineral exploration, QAQC, geological interpretation</strong>
+</div>
+<div>
+<span>Technical focus</span>
+<strong>Assay validation, GIS automation, reporting systems</strong>
+</div>
+<div>
+<span>Working style</span>
+<strong>Field-grounded analysis with structured technical communication</strong>
+</div>
+</div>
+</div>
 
-          <div class="mini-grid">
-            <div class="mini-card">
-              <strong>Technical Depth</strong>
-              <p>Exploration datasets, assay validation, mapping, and analytical workflows.</p>
-            </div>
-            <div class="mini-card">
-              <strong>Consulting Format</strong>
-              <p>Independent, concise, and structured for stakeholders who need decisions, not noise.</p>
-            </div>
-          </div>
+<aside class="atlas-side">
+<div class="panel-block">
+<span class="kicker">Atlas Sheet</span>
+<h2 class="side-title">Exploration geology & technical analysis</h2>
+<p class="side-copy">
+Gabb.ro focuses on exploration geology, assay QAQC, and geospatial analysis. The site acts as a technical front‑end for work involving geological interpretation, analytical validation, GIS workflows, and structured reporting for exploration teams.
+</p>
+</div>
 
-          <div class="profile-card">
-            <strong>Minimalist by design</strong>
-            <p>This version uses restrained typography, soft mineral tones, and a Japanese-inspired sense of spacing to create a more premium technical identity.</p>
-          </div>
-        </aside>
-      </div>
-    </section>
+<div class="mini-atlas">
+<div class="mini-sheet">
+<strong>Interpretation</strong>
+<p>Integrating drill logging, alteration, structure, and geochemistry into coherent geological models.</p>
+</div>
 
-    <section class="section" id="services">
-      <div class="wrap panel section-shell">
-        <div class="section-intro">
-          <div>
-            <span class="kicker">Services</span>
-            <h2 class="section-title">Technical support for exploration and resource-facing workflows.</h2>
-          </div>
-          <p class="section-copy">
-            Use this section to describe the advisory scope you want associated with your name: geological interpretation, GIS and data workflows, QA/QC reviews, technical writing, resource support, and internal decision support for exploration teams or project leaders.
-          </p>
-        </div>
+<div class="mini-sheet">
+<strong>Validation</strong>
+<p>Assessing laboratory performance through duplicates, standards, blanks, and umpire comparisons.</p>
+</div>
 
-        <div class="cards">
-          <article class="card">
-            <h3>Geological interpretation</h3>
-            <p>Support for understanding mineralisation controls, logging patterns, alteration, structure, and drill-planning implications.</p>
-          </article>
-          <article class="card">
-            <h3>QA/QC and assay review</h3>
-            <p>Bias checks, precision assessment, pulp and coarse reject analysis, and concise reporting for resource estimation support.</p>
-          </article>
-          <article class="card">
-            <h3>GIS and data workflows</h3>
-            <p>Geospatial interpretation, mapping outputs, automated workflows, and structured data products that reduce manual friction.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+<div class="mini-sheet">
+<strong>Systems</strong>
+<p>Building GIS workflows and automation that convert exploration datasets into usable technical outputs.</p>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</section>
 
-    <section class="section" id="approach">
-      <div class="wrap panel section-shell">
-        <div class="section-intro">
-          <div>
-            <span class="kicker">Approach</span>
-            <h2 class="section-title">Quiet presentation. Rigorous thinking.</h2>
-          </div>
-          <p class="section-copy">
-            The visual language is deliberately restrained, but the positioning is technical. This helps the site feel more like a trusted advisory presence than a generic freelance profile.
-          </p>
-        </div>
+<section class="section" id="services">
+<div class="wrap services-shell">
+<div class="split-intro">
+<div>
+<span class="kicker">Expertise</span>
+<h2 class="section-title">Technical expertise for exploration teams that need clarity from complex datasets.</h2>
+</div>
+<p class="section-copy">
+The positioning of gabb.ro is deliberately analytical. The site foregrounds geological reasoning, assay QAQC discipline, geospatial workflows, and the ability to turn technical complexity into decisions, reports, and operationally useful interpretation.
+</p>
+</div>
+<div class="cards">
+<div class="card">
+<h3>Geological interpretation</h3>
+<p>Integration of drill logging, alteration, structure, and mapping to better understand mineralisation controls and guide exploration programs.</p>
+</div>
+<div class="card">
+<h3>Assay QAQC analysis</h3>
+<p>Evaluation of laboratory precision, bias, and accuracy using duplicates, standards, blanks, pulp duplicates, and umpire programs to support resource estimation.</p>
+</div>
+<div class="card">
+<h3>GIS & exploration data workflows</h3>
+<p>Development of structured geospatial workflows for exploration datasets including mapping, interpretation, and automated analysis pipelines.</p>
+</div>
+</div>
+</div>
+</section>
 
-        <div class="approach-grid">
-          <div class="step">
-            <small>01</small>
-            <strong>Observe</strong>
-            <p>Start from the geological, spatial, and analytical signals that matter.</p>
-          </div>
-          <div class="step">
-            <small>02</small>
-            <strong>Structure</strong>
-            <p>Turn scattered technical inputs into a consistent working narrative.</p>
-          </div>
-          <div class="step">
-            <small>03</small>
-            <strong>Evaluate</strong>
-            <p>Test assumptions, check data quality, and identify operational implications.</p>
-          </div>
-          <div class="step">
-            <small>04</small>
-            <strong>Communicate</strong>
-            <p>Deliver outputs that executives, geologists, and technical teams can actually use.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+<section class="section" id="approach">
+<div class="wrap approach-shell">
+<div class="split-intro">
+<div>
+<span class="kicker">Approach</span>
+<h2 class="section-title">Observe carefully. Validate rigorously. Communicate clearly.</h2>
+</div>
+<p class="section-copy">
+Good exploration decisions sit at the intersection of field evidence, analytical discipline, and useful communication. The process below reflects how gabb.ro frames technical work: from geology and data through to interpretation and decision support.
+</p>
+</div>
+<div class="approach-grid">
+<div class="step">
+<small>01</small>
+<strong>Observe</strong>
+<p>Start with geological evidence from mapping, logging, and sampling rather than forcing a model too early.</p>
+</div>
+<div class="step">
+<small>02</small>
+<strong>Validate</strong>
+<p>Test the analytical dataset through structured QAQC review before placing too much weight on the numbers.</p>
+</div>
+<div class="step">
+<small>03</small>
+<strong>Interpret</strong>
+<p>Integrate geology, structure, assay trends, and spatial context into a working exploration narrative.</p>
+</div>
+<div class="step">
+<small>04</small>
+<strong>Communicate</strong>
+<p>Translate findings into technical reports, visuals, and summaries that decision makers can actually use.</p>
+</div>
+</div>
+</div>
+</section>
 
-    <section class="section" id="work">
-      <div class="wrap featured-grid">
-        <div class="featured-large panel">
-          <span class="kicker">Focus Areas</span>
-          <h2 class="section-title">A technical personal brand, not a generic homepage.</h2>
-          <p>
-            Version 2 is positioned to support a geology and consulting identity. It leaves room for future expansion into case studies, selected projects, publications, travel-linked field imagery, or a more formal advisory profile.
-          </p>
-        </div>
 
-        <div class="featured-stack">
-          <div class="panel">
-            <strong>Potential next section</strong>
-            <p>Add three selected projects covering exploration, GIS automation, and QA/QC reporting.</p>
-          </div>
-          <div class="panel">
-            <strong>Better CTA option</strong>
-            <p>Use LinkedIn, Calendly, or a protected form rather than exposing an email address directly.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <div class="wrap">
-      <section class="cta">
-        <div>
-          <h2>Need a more polished technical identity for your domain?</h2>
-          <p>
-            This page is ready to publish as a cleaner placeholder now, and it can be extended later into a full consulting site with project pages, field photography, mapping visuals, and a protected contact workflow.
-          </p>
-        </div>
-        <a class="btn btn-primary" href="https://linkedin.com/">Connect on LinkedIn</a>
-      </section>
-    </div>
-  </main>
 
-  <footer class="site-footer">
-    <div class="wrap">© <span id="year"></span> gabb.ro — geology & technical consulting.</div>
-  </footer>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+<div class="wrap">
+<section class="cta">
+<div>
+<h2>Connect</h2>
+<p>
+For collaboration, technical discussion, or exploration-related topics.
+</p>
+</div>
+<a class="btn btn-primary" href="https://linkedin.com">Connect on LinkedIn</a>
+</section>
+</div>
+</main>
+
+<footer>
+<div class="wrap">© <span id="year"></span> gabb.ro — exploration geology, technical analysis, and advisory</div>
+</footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
 </body>
 </html>
